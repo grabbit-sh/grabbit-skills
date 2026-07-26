@@ -14,7 +14,7 @@ description: >-
   engaging on Reddit without getting banned.
 license: MIT
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # Grabbit — Reddit marketing agent
@@ -25,6 +25,11 @@ dimensions (relevancy, intent, sentiment, mentions, requests, competitor signals
 etc.). Your job with this skill is to drive that data — find leads and mentions,
 build the right filtered views, and help the user engage — through the
 `mcp__grabbit__*` tools.
+
+Run it as a **self-driving loop**: pull the highest-intent leads, and for each one
+produce a ready-to-post reply draft — right voice, right angle, rule-safe — that
+the user only has to paste. The reply craft in step 4 is where this skill earns
+its keep; don't shortcut it.
 
 ## Mental model
 
@@ -109,19 +114,70 @@ This is the core of Reddit marketing with Grabbit.
   `engage-queue`), then `set_entry_tags(entryId, tagIds)` — remember it replaces.
 - `set_entry_status(entryIds, "archived")` to clear noise so the inbox stays real.
 
-### 4. Engage — without getting banned
-Reddit punishes spam with bans and brand damage, and Grabbit surfaces the rules
-so you use them.
-- **Read the subreddit's rules first** via `list_project_feeds` (or check the
-  thread's sub). Many communities ban self-promotion outright.
-- `get_reddit_thread(url)` → read the *live* conversation before drafting; the
-  stored entry can be stale and misses recent replies.
-- **Draft to help first.** Lead with a genuinely useful answer to the actual
-  question. Disclose affiliation. Mention the product only where it truly fits the
-  problem — use the project's `problems`/`solutions` as your positioning, not a
-  pitch. If the sub bans promo, help without linking. Grabbit does not post for
-  you: hand the user the drafted reply (and thread url) to post themselves.
-- After the user posts: `set_entry_status(entryIds, "replied")`.
+### 4. Engage — draft replies that convert without getting banned
+This is where the agent earns its keep. A reply that reads like an ad gets
+downvoted, removed, and can get the account banned; a reply that reads like a
+helpful regular wins the lead. For each thread worth engaging, run this sequence —
+never skip straight to drafting.
+
+1. **Read the live thread *and its comments*.** `get_reddit_thread(url)` — not just
+   the post. The comments are the single most useful input you have: they set the
+   community's register, reveal what's already been said (never repeat it), and
+   show which answers the crowd actually rewards (score).
+
+2. **Check the rules.** `list_project_feeds(projectId)` exposes each feed's posting
+   rules; if the thread's sub isn't a feed, judge from its norms. Many subs ban
+   links or self-promo outright. The rules decide whether you may name the product,
+   link it, or only help. When in doubt, help without linking.
+
+3. **Copy the voice of a good comment.** Pick the top-upvoted, natural-sounding
+   comment in the thread (skip mods and other ads) and mirror it: length, tone,
+   formality, formatting (paragraph vs. bullets vs. one-liner), jargon vs. plain
+   talk. Your reply should be stylistically indistinguishable from a regular
+   contributor — that's the entire game. A three-paragraph pitch under a thread of
+   terse one-liners screams "marketer" and dies.
+
+4. **Find the angle from the classification.** The entry's labels hand you the
+   opening — match the reply to what they're actually doing:
+   - `request:recommendation` / `intent:comparing` → give an honest shortlist, put
+     the product in it, disclose your bias, don't trash competitors.
+   - `competitor:complaint` / `competitor:feature_gap` → empathize with the pain,
+     then show how you'd solve *that specific* problem.
+   - `experience:pain_point` / `request:advice` → answer the real question first;
+     the product is at most the last sentence.
+   - `request:pricing` / `intent:buying` → be concrete about cost and fit; these
+     are ready to convert, don't be coy.
+
+5. **Draft help-first, disclose, earn the mention.** Lead with a genuinely useful
+   answer built from the thread. Disclose affiliation in plain words ("full
+   disclosure, I work on X"). Mention the product only where it's the honest answer
+   to what they asked — one line, no link if the sub forbids it. Pull substance
+   from the project's `problems`/`solutions` (via `list_projects`); never paste a
+   slogan.
+
+6. **Hand off and record.** Grabbit does not post for the user. Output the drafted
+   reply plus the thread url so they can post in their own account, then
+   `set_entry_status(entryIds, "replied")` once posted.
+
+**Match the room — example.** Thread in r/SaaS, comments are short and casual:
+*"What are you all using to find leads on Reddit? Manually searching is killing me."*
+
+❌ Screams marketer (wrong register, slogan, feature-dump):
+> Great question! Finding leads on Reddit manually is a significant challenge many
+> businesses face. Fortunately, Grabbit leverages advanced AI classification across
+> 56 labels to surface high-intent prospects automatically, monitoring subreddits
+> and tracking brand mentions in real time...
+
+✅ Matches the room (mirrors the casual one-liner voice, help-first, discloses,
+earns a single soft mention):
+> Same, manual search was eating my mornings. What worked for me was watching a few
+> subs with keyword filters so only buyer-intent posts hit my inbox instead of
+> scrolling. Full disclosure I work on Grabbit which does exactly that — but even a
+> saved search + alerts beats doing it by hand. Happy to share how I set the filters.
+
+**Reply checklist before you hand it over:** register matches a real comment in the
+thread · opens with actual help · discloses affiliation · product mention is earned
+and ≤1 line · no link if rules forbid · adds something not already said.
 
 ### 5. Report
 Summarize what you found and did: counts of leads / mentions by sentiment, the
