@@ -1,41 +1,104 @@
 # Writing Reddit replies that convert (and don't read like ads)
 
 The reply is the whole product. Grabbit finds the lead; a reply that reads like
-marketing wastes it — downvoted, removed, sometimes banned. A reply that reads
-like a helpful regular wins it. This doc is the craft behind step 4 of `SKILL.md`.
+marketing wastes it — downvoted, removed, sometimes the account banned. A reply
+that reads like a helpful regular wins it. The entire craft is three things:
+**sound like a real person in *that* sub, help before you sell, and mention the
+product only when it's the honest answer.**
+
+Everything below is a field-tested method for writing Reddit-native comments. It
+uses placeholders — `[your product]`, `[competitor]`, `[the pain]` — because the
+same technique works for any brand. Fill them from the project's
+`problems`/`solutions`/`targetAudience` in `list_projects`.
 
 ## Contents
-1. The one method: ghostwrite a real commenter
-2. Why AI replies get spotted
-3. The AI-tell filter (run before you hand off)
-4. Match the mechanical texture
-5. Angle by lead type — worked examples
-6. Tone by situation
-7. Rhythm, length, and mentioning the product
+1. Before you type — read the room
+2. The core move — ghostwrite a real commenter
+3. Study real Reddit voices (product-agnostic samples)
+4. Why AI replies get spotted
+5. The AI-tell filter (run on every draft)
+6. Mechanical humanization
+7. The mention — help first, earn it, user voice
+8. The final gate before you hand it over
+9. Account strategy (so the account survives to sell)
 
 ---
 
-## 1. The one method: ghostwrite a real commenter
+## 1. Before you type — read the room
 
-Before drafting, pull the thread with `get_reddit_thread(url)` and read the
-comments. Pick the **top-upvoted, natural-sounding comment** (skip mods and other
-ads) and write *as that person* — not "inspired by," actually ghostwrite them.
-Copy six things:
+Never draft blind. Pull the thread with `get_reddit_thread(url)` and, if the sub is
+a project feed, `list_project_feeds(projectId)` for its rules. In ~30 seconds
+capture five things — this is what separates a native comment from an obvious
+outsider:
+
+- **Tone** — raw/vulnerable? dry/sarcastic? technical? buttoned-up?
+- **Formatting** — plain text walls, or bullets/bold? (most casual subs: plain)
+- **Capitalization** — proper caps, all-lowercase, or mixed?
+- **Swearing** — common, occasional, or never?
+- **What gets upvoted** — stories? blunt hot takes? specific data? one-liners?
+
+And the one hard gate: **the rules**. Can you name a product? Link? Many subs ban
+self-promo outright (`r/startups`, `r/ExperiencedDevs`) — there you help with zero
+mention. Others (`r/SideProject`) invite it. The rules decide what's even possible.
+
+## 2. The core move — ghostwrite a real commenter
+
+This is the single highest-leverage step. In the thread, find the **top-upvoted,
+natural-sounding comment** (skip mods and other ads) and write *as that person* —
+not "inspired by," actually ghostwrite them. Copy six things:
 
 - **Sentence length and rhythm** — short jabs vs. long run-ons
-- **Punctuation habits** — do they skip commas? use periods as beats?
-- **Paragraph breaks** — one fat block, or lots of little ones
+- **Punctuation habits** — do they skip commas? use periods as beats? ALL CAPS?
+- **Paragraph shape** — one fat block, or lots of little ones
 - **Vocabulary and register** — jargon-heavy vs. plain talk
-- **Messiness** — fragments, lowercase, missing apostrophes
+- **Messiness** — fragments, lowercase, missing apostrophes, typos left in
 - **Emotional directness** — blunt, warm, dry, ranty
 
-The sample gives you *how* to write. The lead's classification (section 5) gives
-you *what* to say. If there's no good comment yet, match the **post's** voice
-instead.
+The sample gives you *how* to write. The lead's classification labels (section 7)
+give you *what* to say. No good comment yet? Match the **post's** voice instead.
 
-## 2. Why AI replies get spotted
+## 3. Study real Reddit voices
 
-Reddit has a finely tuned nose for AI. Four tells, with the fix:
+These are verbatim human comments from real threads — no product in them, just
+texture. Notice how *unlike* an LLM they are. This is the bar.
+
+**One-sentence reaction, 2,415 upvotes:**
+> It's funny how accurate this is to my current situation
+
+**Blunt two-liner, 343 upvotes:**
+> No, games aren't CRUD, generally embedded isn't, or creative apps like Adobe, or
+> industrial.
+>
+> No magic to it, apply for jobs you like the look of.
+> *Dismissive but genuinely helpful. Zero padding, zero hedging.*
+
+**All-lowercase dry rant, trailing off:**
+> it was exhausting doing 3 months of engineering roadmap planning and then, 2 weeks
+> later, the CEO would barge in and demand we throw G into the mix. and also Q...
+>
+> now i work for big tech. it's a different type of bullshit. but at least i get
+> paid better
+> *Lowercase throughout, trailing ellipsis, dry final line doing the emotional work.*
+
+**Practical advice, note the typo left in, 244 upvotes:**
+> I've been through this. Best thing to do it document and explain but don't get too
+> emotionally invested. At some point upper management is going to be disappointed
+> and you want to be able to defend that you tried.
+
+**One fat paragraph, ALL CAPS for emphasis instead of bold:**
+> We get ~80 page outs per week, not even joking. 99% of which are false alarms...
+> everyone seems to agree its absolutely insane, but we MUST have these alarms, set
+> by SRE. If I don't wake up within 5 min it escalates. And they happen MULTIPLE
+> times a night.
+> *No structure, ALL CAPS not bold, "its" without apostrophe, hard numbers.*
+
+The pattern across all of them: **uneven length, specific numbers, no announced
+structure, typos survive, emphasis is ALL CAPS not markdown, and they stop when the
+thought stops** — not with a neat summary.
+
+## 4. Why AI replies get spotted
+
+Reddit has a finely tuned nose for AI. The tells, each with the fix:
 
 **AI writes symmetrically. Humans don't.**
 > AI: three paragraphs, two sentences each, all the same size.
@@ -47,27 +110,29 @@ Reddit has a finely tuned nose for AI. Four tells, with the fix:
 
 **AI over-punctuates. Humans run thoughts together.**
 > AI: "It's fast. I've benchmarked it. However, the cost is steep."
-> Human: "its fast ive benchmarked it but the cost is rough at scale"
+> Human: "its fast ive benchmarked it but the cost gets rough at scale"
 
 **AI announces its points. Humans just say them.**
-> AI: "Here's the thing: most people don't actually need a full crawler."
-> Human: "most people dont need a full crawler they need like 3 pages scraped"
+> AI: "Here's the thing: most people don't actually need [category]."
+> Human: "most people dont need [category] they need like 3 things it does"
 
-Your length comes from *your* take, never from matching OP's paragraph count.
+**AI mirrors OP's structure. Humans don't.** Your length comes from *your* take, not
+from matching OP's paragraph count.
 
-## 3. The AI-tell filter (run before you hand off)
+## 5. The AI-tell filter (run on every draft)
 
-Mechanical check on every draft. If it trips, rewrite — these are the words that
-out an LLM instantly:
+Mechanical check. If any of these appear in the drafted reply, rewrite — they out
+an LLM instantly:
 
 - **Banned words**: crucial, notable, significant, essential, fundamental,
   straightforward, delve, landscape, realm, navigate (metaphorical), foster,
   facilitate, pivotal, nuanced, robust, comprehensive, multifaceted, intriguing,
-  compelling, leverage, synergy, seamless, game-changer, unlock, empower
+  compelling, leverage, synergy, seamless, streamline, game-changer, unlock, empower
 - **Banned phrases**: "it's worth noting", "the reality is", "what's interesting
-  is", "in essence", "at the end of the day", "at its core", "great question"
-- **Banned transitions**: However, Furthermore, Additionally, Moreover, That said
-  → use *but, and, also, tho*
+  is", "in essence", "at the end of the day", "at its core", "great question",
+  "happy to help", "hope this helps"
+- **Banned transitions**: However, Furthermore, Additionally, Moreover, That said,
+  In conclusion → use *but, and, also, tho, so*
 - **Banned punctuation**: em dashes (—), semicolons, colon-before-an-explanation
 - **No hedging openers**: don't start with "I think", "in my opinion", "to be fair"
 - **No sucking up**: never open with "Great question!", "Thanks for sharing!" —
@@ -75,118 +140,117 @@ out an LLM instantly:
 - **No formatting in casual subs**: no bullets/bold/numbered lists unless the sub's
   own top comments use them
 
-## 4. Match the mechanical texture
+## 6. Mechanical humanization
 
-Real Redditors don't write like press releases. To blend, borrow the texture of
-the sample you picked — not as a trick, but because clean corporate prose is the
-tell:
+Real Redditors don't write like press releases. Borrow the texture of the sample
+you picked — not as a trick, but because clean corporate prose *is* the tell:
 
-- Contractions often lose the apostrophe: *dont, youre, isnt, thats, wont*
-- Sentences start lowercase sometimes
-- Paragraphs are uneven; fragments are fine
-- Numbers and specifics beat adjectives ("cut my scraping time from ~2h to 20min"
-  lands; "dramatically faster" doesn't)
+- **Drop 1-3 apostrophes** across the reply: *dont, youre, isnt, thats, wont, its*
+- **Occasionally start a sentence lowercase** (or the whole comment)
+- **ALL CAPS for emphasis**, never bold or italics
+- **Uneven paragraphs**, fragments are fine, trail off instead of concluding
+- **Numbers and specifics beat adjectives** — "cut it from ~2h to 20min" lands;
+  "dramatically faster" is noise
 
-Don't overdo it into performative sloppiness — match *that thread's* level.
+Calibrate to *that thread's* level — don't paste sloppiness onto a buttoned-up sub.
 
-## 5. Angle by lead type — worked examples
+## 7. The mention — help first, earn it, user voice
 
-Each lead's classification labels hand you the opening. Full before/after pairs:
+The lead's classification labels hand you the opening. **Speak as a user who tried
+it, not the vendor** — "i switched to X", "X fixed this for me" reads as a
+recommendation; "we built X" reads as an ad and dies. Product mention is at most one
+line, no link if the rules forbid it, and only where it's the honest answer.
 
 ### `request:recommendation` / `intent:comparing`
-Thread: *"Whats everyone using to scrape sites for LLM context? Firecrawl keeps
-timing out on me."*
+Thread: *"what's everyone using for [category]? [competitor] keeps [failing at X]."*
 
 ❌ Ad:
-> Great question! For reliable web scraping at scale, ScrapeGraphAI leverages
-> natural language prompts to extract structured data seamlessly without proxies
-> or CSS selectors. It's a robust, comprehensive solution...
+> Great question! For [category] at scale, [your product] leverages a robust,
+> seamless approach to streamline your workflow without the usual headaches...
 
-✅ Blends in, honest shortlist, user voice:
-> firecrawl timeouts are usually the big js-heavy pages. depends what you need, if
-> you just want clean markdown the reader-style APIs are fine. i needed structured
-> json out of messy pages so i switched to scrapegraphai, you give it a prompt
-> instead of selectors so it doesnt break when the layout changes. not magic but
-> the no-selectors part saved me a ton of maintenance.
+✅ Honest shortlist, user voice:
+> [competitor] failing at X is usually [root cause]. depends what you need, if you
+> just want [basic case] the free options are fine. i needed [specific case] so i
+> switched to [your product], mainly because [the one concrete thing]. not magic but
+> it stopped [the recurring pain]. worth a trial before you commit tho.
 
 ### `competitor:complaint` / `competitor:feature_gap`
-Thread: *"Ugh, [competitor] just raised prices again and still no async API. Looking
-for alternatives."*
+Thread: *"[competitor] raised prices again and still no [feature]. looking around."*
 
 ❌ Ad:
-> Sorry to hear that! ScrapeGraphAI offers a compelling alternative with a robust
-> async API and transparent pricing that empowers developers to...
+> Sorry to hear that! [your product] offers a compelling alternative with a
+> comprehensive [feature] that empowers teams to...
 
 ✅ Empathize, then solve the *specific* gap:
-> the async thing is what got me too, ended up queueing everything myself which was
-> dumb. i moved to scrapegraphai mainly because the async endpoint was there out of
-> the box. pricing is per-request not seat based so it scales with usage instead of
-> punishing you. worth a trial before you commit tho.
+> the [missing feature] thing got me too, ended up hacking around it which was dumb.
+> moved to [your product] mostly because [feature] was there out of the box. pricing
+> is [model] so it scales with usage instead of punishing you. try it before you
+> commit tho, your [use case] might differ.
 
 ### `experience:pain_point` / `request:advice`
-Thread: *"Spent all weekend writing selectors and the site redesigned Monday. I want
-to quit."*
+Thread: *"[spent hours on the painful thing] and it broke again. i want to quit."*
 
 ❌ Ad that ignores the human:
-> This is a common pain point! ScrapeGraphAI solves selector maintenance by...
+> This is a common pain point! [your product] solves [the pain] by...
 
-✅ Answer the real pain first, product is the last line and optional:
-> yeah selectors are a losing game on sites that redesign a lot. two things that
-> helped me, scrape the rendered dom not the raw html, and target stable stuff like
-> aria labels or the json in script tags instead of css classes. if you want to
-> skip selectors entirely i use scrapegraphai for it now, but honestly even just
-> switching to structural anchors will stop most of the monday breakage.
+✅ Answer the real pain first, product optional and last:
+> yeah [the pain] is a losing game when [condition]. two things that helped me,
+> [genuinely useful tip 1], and [tip 2] instead of [the brittle approach]. if you
+> want to skip it entirely i use [your product] for it now, but honestly even just
+> [the free tip] will stop most of the breakage.
 
 ### `request:pricing` / `intent:buying`
-Thread: *"Is [product] worth it for ~50k pages/month or is there something cheaper?"*
+Thread: *"is [tool] worth it at [scale] or is there something cheaper?"*
 
 These are ready to convert. Be concrete, not coy:
-> at 50k/mo youre past most free tiers so it comes down to per-request cost.
-> scrapegraphai runs me around $X per 1k on the structured endpoint, cheaper if you
-> only need markdown. the real question is whether you need js rendering, that
-> roughly doubles cost everywhere. tell me the site type and i can ballpark what
-> itd cost you.
+> at [scale] youre past most free tiers so it comes down to [cost driver].
+> [your product] runs me around [$X per unit], cheaper if you only need [basic
+> tier]. the real question is whether you need [the expensive feature], that roughly
+> doubles cost everywhere. tell me your [key variable] and i can ballpark it.
 
-### Brand mention (someone already named your product)
-Thread: *"Tried ScrapeGraphAI, the crawl kept returning partial data."* (a
-`mention:project` + `sentiment:negative`)
-
-Don't get defensive, fix it as a user who hit the same wall:
-> had the same partial-data thing at first. for me it was the crawl depth capping
-> out before it reached the pages i actually wanted, or the site paginating via js.
-> theres a flag for the js pagination thats easy to miss, flipping it fixed my run.
-> what site were you scraping? might be the same thing.
+### Negative brand mention (`mention:project` + `sentiment:negative`)
+Someone already named your product and hit a wall. Don't get defensive — fix it as
+a user who hit the same thing:
+> had the same [problem] at first. for me it was [the real cause], or [the config
+> gotcha]. theres a [setting/flag] thats easy to miss, flipping it fixed my run.
+> what [context] were you on? might be the same thing.
 
 ### When the sub bans self-promo
-Rules first (`list_project_feeds`). If promo is banned, help with **zero** product
-mention and no link — the goodwill still compounds:
-> for that you want to target the json embedded in script tags, most sites ship the
-> data there before rendering. way more stable than scraping the visible dom. grep
-> the page source for "application/ld+json" or a __NEXT_DATA__ blob, its usually all
-> right there.
+Rules first. If promo is banned, help with **zero** product mention and no link —
+the goodwill still compounds and the account stays clean:
+> for that you want [the genuinely useful technique], its way more stable than
+> [the common wrong approach]. [one concrete specific]. that alone fixed it for me.
 
-## 6. Tone by situation
+## 8. The final gate before you hand it over
 
-| Situation | Energy |
-|---|---|
-| Agreeing | "Exactly." + one thing they missed |
-| Disagreeing | "This assumes X, which breaks the moment you Y" |
-| Hype thread | one dry observation, don't pile on |
-| Genuine question | blunt but helpful, give the answer, skip hand-holding |
-| Someone's frustrated | empathize in one line, then the fix |
-| Defending the product | acknowledge the flaw, offer to fix it, never argue |
+Before presenting a draft, it must pass all of these — same bar the account holds
+itself to:
 
-## 7. Rhythm, length, and mentioning the product
+- [ ] Register matches a real comment in *that* thread (section 1–2)
+- [ ] Passes the AI-tell filter — no banned words/phrases/transitions (section 5)
+- [ ] No em dashes, no semicolons
+- [ ] Opens with actual help, not a pitch or a compliment
+- [ ] Product mention is earned, ≤1 line, framed as your own experience
+- [ ] No link if the sub's rules forbid it
+- [ ] Adds something not already said in the thread
 
-- **Length comes from your take, not OP's.** Eight words if that's enough, a
-  paragraph if it needs it. Match the thread's comments, not the post.
-- **Comment on rising threads** (<2h old) for visibility; that's where a helpful
-  reply gets seen.
-- **Speak as a user, not the vendor.** Frame the product as something you tried and
-  it worked — *"i switched to X", "i use X for this", "X fixed it for me"*. First
-  person as a happy customer reads as a recommendation; "we built X" reads as an ad
-  and gets treated like one.
-- **Earn the mention.** Product shows up only where it's the honest answer to what
-  they asked, at most one line, no link if the rules forbid it. If it doesn't fit
-  naturally, leave it out entirely, a genuinely helpful reply with no mention still
-  builds the account and the goodwill.
+Grabbit doesn't post for the user. Output the reply plus the thread url so they post
+it in their own account, then `set_entry_status(entryIds, "replied")`.
+
+## 9. Account strategy (so the account survives to sell)
+
+A reply is only as good as the account behind it. An account that only ever shows
+up to plug a product gets pattern-matched as a shill and shadowbanned.
+
+- **~3 helpful comments for every 1 that mentions the product.** Build reputation
+  first; the mentions land far better from an account with real history.
+- **Comment on rising threads (<2h old).** That's where a good reply gets seen and
+  upvoted; old threads are dead air.
+- **Focus 4–5 subs**, not every sub at once — depth reads as belonging, spray reads
+  as spam.
+- **End messy.** A trailing thought or a question beats a neat summary; summaries
+  are an AI tell.
+- **Length comes from the room**, never a fixed size — match the thread's comments.
+- **Never fabricate.** You can share experience and opinion freely, but don't invent
+  benchmarks, prices, or outcomes you can't stand behind. Getting caught lying is
+  the one thing that kills a brand faster than spamming.

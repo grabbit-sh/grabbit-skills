@@ -14,7 +14,7 @@ description: >-
   engaging on Reddit without getting banned.
 license: MIT
 metadata:
-  version: 0.3.0
+  version: 0.4.0
 ---
 
 # Grabbit — Reddit marketing agent
@@ -160,29 +160,32 @@ never skip straight to drafting.
    reply plus the thread url so they can post in their own account, then
    `set_entry_status(entryIds, "replied")` once posted.
 
-**Match the room — example.** Thread in r/SaaS, comments are short and casual:
-*"What are you all using to find leads on Reddit? Manually searching is killing me."*
+**Match the room — example** (use placeholders; fill `[your product]` etc. from the
+project's positioning). Thread in a SaaS sub, comments are short and casual:
+*"what are you all using for [category]? doing it manually is killing me."*
 
 ❌ Screams marketer (wrong register, slogan, feature-dump):
-> Great question! Finding leads on Reddit manually is a significant challenge many
-> businesses face. Fortunately, Grabbit leverages advanced AI classification across
-> 56 labels to surface high-intent prospects automatically, monitoring subreddits
-> and tracking brand mentions in real time...
+> Great question! Doing [category] manually is a significant challenge many teams
+> face. Fortunately, [your product] leverages a robust, seamless approach to
+> streamline this and empower you to [outcome] automatically in real time...
 
 ✅ Matches the room (mirrors the casual one-liner voice, help-first, product as a
 user's own experience):
-> same, manual search was eating my mornings. what worked for me was watching a few
-> subs with keyword filters so only buyer-intent posts hit my inbox instead of
-> scrolling. i use grabbit for it now, but even a saved search + alerts beats doing
-> it by hand. happy to share how i set the filters up.
+> same, doing it by hand was eating my mornings. what worked for me was [the free
+> approach] so only the stuff worth acting on reached me instead of scrolling. i use
+> [your product] for it now, but even [the free approach] beats doing it manually.
+> can share how i set it up if useful.
 
 **Reply checklist before you hand it over:** register matches a real comment in the
 thread · opens with actual help · product framed as your own experience, not a
 pitch, and ≤1 line · no link if rules forbid · adds something not already said.
 
-**The full comment craft lives in `references/writing-comments.md`** — more worked
-examples per lead type, the AI-tell word filter (banned words/phrases/punctuation
-that out an LLM), and how to voice-match a real commenter. Read it before drafting.
+**The full comment craft lives in `references/writing-comments.md` — read it before
+drafting.** It covers reading the room (tone/format/rules), voice-matching a real
+commenter, real human comment samples to study, the AI-tell filter (banned
+words/phrases/punctuation that out an LLM), mechanical humanization, per-lead-type
+examples with placeholders, and account strategy (the ~3:1 help-to-mention ratio)
+so the account doesn't get pattern-matched as a shill and shadowbanned.
 
 ### 5. Report
 Summarize what you found and did: counts of leads / mentions by sentiment, the
